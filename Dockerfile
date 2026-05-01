@@ -6,14 +6,12 @@ RUN apt update && apt install -y \
 
 WORKDIR /app
 
-# Download + extract dengan aman
 RUN set -eux; \
-    curl -L https://github.com/JayDDee/cpuminer-opt/releases/download/v3.22.0/cpuminer-opt-3.22.0-x86_64-linux.tar.gz -o miner.tar.gz; \
-    tar -xzf miner.tar.gz; \
-    ls -R; \
+    curl -fL --retry 5 --retry-delay 3 \
+    https://github.com/JayDDee/cpuminer-opt/releases/download/v3.22.0/cpuminer-opt-3.22.0-x86_64-linux.tar.gz \
+    | tar -xz; \
     find . -name cpuminer -type f -exec mv {} ./app \;; \
-    chmod +x ./app; \
-    rm -rf miner.tar.gz cpuminer*
+    chmod +x ./app
 
 COPY config.json /app/config.json
 
