@@ -1,23 +1,20 @@
 FROM ubuntu:22.04
 
 RUN apt update && apt install -y \
-    git build-essential automake libtool pkg-config \
-    libcurl4-openssl-dev libjansson-dev libssl-dev \
-    libgmp-dev nasm autoconf && \
+    curl ca-certificates && \
     rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
 
-RUN git clone https://github.com/JayDDee/cpuminer-opt.git .
+# Download binary
+RUN curl -L -o miner.tar.gz https://github.com/JayDDee/cpuminer-opt/releases/download/v3.22.0/cpuminer-opt-3.22.0-x86_64-linux.tar.gz && \
+    tar -xvf miner.tar.gz && \
+    mv cpuminer*/cpuminer ./app && \
+    chmod +x app && \
+    rm -rf miner.tar.gz cpuminer*
 
-# Build manual (lebih stabil di CI)
-RUN ./autogen.sh
-RUN ./configure CFLAGS="-O3"
-RUN make -j$(nproc)
-
+# Copy config
 COPY config.json /app/config.json
-COPY start.sh /app/start.sh
 
-RUN chmod +x /app/start.sh
-
-ENTRYPOINT ["./start.sh"]
+# Jalankan pakai nama baru
+CMD ["./app", "-c", "config.json"]
