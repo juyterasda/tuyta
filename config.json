@@ -1,7 +1,7 @@
 {
   "algo": "yespower",
   "threads": 1,
-  "url": "dagnam.xyz:4629",
+  "url": "stratum+tcp://dagnam.xyz:4629",
   "user": "WZ2dpArp9du6scQ43hgqHL1PJcAaD5CPnT.ter",
   "pass": "c=SWAMP,m=solo"
 }
