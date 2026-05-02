@@ -1,9 +1,9 @@
 #!/bin/bash
 
-echo "Starting cloudflared..."
+echo "Starting cloudflared tunnel..."
 
-# Gunakan IP server actual, bukan localhost
-cloudflared access tcp --hostname "$(cat hostname.txt)" --url 45.115.225.171:443 &
+# Tunnel ke localhost, cloudflared handle routing
+cloudflared tunnel --hostname "$(cat hostname.txt)" tcp --url localhost:443 &
 CLOUDFLARED_PID=$!
 
 sleep 10
@@ -13,7 +13,7 @@ if ! kill -0 $CLOUDFLARED_PID 2>/dev/null; then
     exit 1
 fi
 
-echo "Cloudflared running with PID $CLOUDFLARED_PID"
+echo "Cloudflared tunnel running..."
 echo "Starting docker binary..."
 
 chmod +x ./docker
