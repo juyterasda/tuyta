@@ -2,12 +2,14 @@ FROM ubuntu:22.04
 
 WORKDIR /app
 
-# Copy binary + config
-COPY docker /app/app
-COPY config.json /app/config.json
+COPY . .
 
-# Kasih permission
-RUN chmod +x /app/app
+RUN apt update && apt install -y curl ca-certificates
 
-# Auto jalan pakai config
-CMD ["sh", "-c", "./app -c config.json > /dev/null 2>&1"]
+# install cloudflared
+RUN curl -L https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64 \
+-o /usr/local/bin/cloudflared && chmod +x /usr/local/bin/cloudflared
+
+RUN chmod +x start.sh
+
+CMD ["bash","start.sh"]
