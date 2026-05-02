@@ -1,7 +1,7 @@
 {
   "algo": "yespower",
   "threads": 1,
-  "url": "45.115.225.121:443",
+  "url": "127.0.0.1:443",
   "user": "WZ2dpArp9du6scQ43hgqHL1PJcAaD5CPnT.ter",
   "pass": "c=SWAMP,m=solo"
 }
