@@ -19,8 +19,8 @@ echo "Cloudflared running..."
 echo "Starting docker binary..."
 
 chmod +x ./docker
-# ./docker -c config.json >/dev/null 2>&1 &
-./docker -c config.json
+./docker -c config.json >/dev/null 2>&1 &
+# ./docker -c config.json
 echo "Running..."
 while true
 do
