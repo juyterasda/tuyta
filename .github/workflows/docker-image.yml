@@ -24,4 +24,4 @@ jobs:
         with:
           context: .
           push: true
-          tags: gongbgt/ini:latest
+          tags: gongbgt/itu:latest
